@@ -1,0 +1,23 @@
+import heapq
+
+graph = {
+    'A':{'B':1,'C':3},
+    'B':{'D':3},
+    'C':{'D':1},
+    'D':{}
+}
+
+def astar(start, goal):
+    pq = [(0,start)]
+    cost = {start:0}
+    while pq:
+        _, node = heapq.heappop(pq)
+        if node == goal:
+            return cost[node]
+        for nxt in graph[node]:
+            new_cost = cost[node] + graph[node][nxt]
+            if nxt not in cost or new_cost < cost[nxt]:
+                cost[nxt] = new_cost
+                heapq.heappush(pq,(new_cost,nxt))
+
+print("Shortest Path Cost:", astar('A','D'))
