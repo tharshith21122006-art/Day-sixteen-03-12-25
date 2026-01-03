@@ -1,0 +1,15 @@
+import math
+
+def entropy(data):
+    total = len(data)
+    classes = {}
+    for d in data:
+        classes[d] = classes.get(d,0)+1
+    ent = 0
+    for c in classes.values():
+        p = c/total
+        ent -= p * math.log2(p)
+    return ent
+
+labels = ["Yes","Yes","No","Yes","No"]
+print("Entropy:", entropy(labels))
