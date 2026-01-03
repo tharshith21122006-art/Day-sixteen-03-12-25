@@ -1,0 +1,21 @@
+import math
+
+data = [
+    ("Sunny","Hot","No"),
+    ("Sunny","Hot","No"),
+    ("Overcast","Hot","Yes"),
+    ("Rain","Mild","Yes")
+]
+
+def predict(sample):
+    classes = set(d[-1] for d in data)
+    probs = {}
+    for c in classes:
+        probs[c] = 1
+        for i in range(len(sample)):
+            count = sum(1 for d in data if d[i]==sample[i] and d[-1]==c)
+            total = sum(1 for d in data if d[-1]==c)
+            probs[c] *= (count+1)/(total+len(data))
+    return max(probs, key=probs.get)
+
+print("Prediction:", predict(("Sunny","Hot")))
